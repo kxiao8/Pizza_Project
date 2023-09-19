@@ -1,7 +1,15 @@
 altair
+
 numpy
+
 pandas
+
 pydeck
+
 streamlit
+
+streamlit_feedback 
+
 openai
+
 trubrics

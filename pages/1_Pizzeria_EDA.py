@@ -12,11 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import numpy as np
 import pandas as pd
 import streamlit as st
-from streamlit.hello.utils import show_code
-
 
 # For simple pie chart with percentage
 def alt_pie(data:pd.DataFrame, value_col:str, color_by:str,
@@ -218,9 +215,6 @@ def alt_bar_vertical(data: pd.DataFrame, x_col: str, y_col: str, color_by: str,
 st.set_page_config(page_title="Pizzeria EDA", page_icon="📈")
 st.markdown("# Pizzeria EDA")
 st.sidebar.header("Pizzeria EDA")
-
-import altair as alt
-from vega_datasets import data
 
 # Basic Stats
 df = pd.read_csv('./pizza_sales.csv')

@@ -249,9 +249,7 @@ st.write(
 name_size_cnt = df.groupby(['pizza_name', 'pizza_size']).count()['order_id'].reset_index()
 name_size_cnt = name_size_cnt.rename(columns={'order_id': 'count'})
 
-name_size_p1 = alt_bar_horizontal(name_size_cnt, 'count', 'pizza_name', 'pizza_size',
-                   title_name='Pizza Order Distribution',
-                   color_domain_order=['S', 'M', 'L', 'XL', 'XXL'])
+name_size_p1 = alt_bar_horizontal(name_size_cnt, 'count', 'pizza_name', 'pizza_size', title_name='Pizza Order Distribution', color_domain_order=['S', 'M', 'L', 'XL', 'XXL'])
 
 # Pizza Size Sales Sum
 name_size_sum = df.groupby(['pizza_name', 'pizza_size']).sum(numeric_only=True)['total_price'].reset_index()

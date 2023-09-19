@@ -1,7 +1,5 @@
 import openai
 import streamlit as st
-from streamlit_feedback import streamlit_feedback
-import trubrics
 
 st.set_page_config(page_title="Pizza Chatbot", page_icon = "🍕", layout="centered",
                    initial_sidebar_state="auto", menu_items=None)
@@ -119,26 +117,3 @@ if prompt := st.chat_input(placeholder="OrderBot is ready to take your order!"):
     with st.chat_message("assistant"):
         messages.append({"role": "assistant", "content": st.session_state["response"]})
         st.write(st.session_state["response"])
-
-if st.session_state["response"]:
-    feedback = streamlit_feedback(
-        feedback_type="thumbs",
-        optional_text_label="[Optional] Please provide an explanation",
-        key=f"feedback_{len(messages)}",
-    )
-    # This app is logging feedback to Trubrics backend, but you can send it anywhere.
-    # The return value of streamlit_feedback() is just a dict.
-    # Configure your own account at https://trubrics.streamlit.app/
-    if feedback and "TRUBRICS_EMAIL" in st.secrets:
-        config = trubrics.init(
-            email=st.secrets.TRUBRICS_EMAIL,
-            password=st.secrets.TRUBRICS_PASSWORD,
-        )
-        collection = trubrics.collect(
-            component_name="default",
-            model="gpt",
-            response=feedback,
-            metadata={"chat": messages},
-        )
-        trubrics.save(config, collection)
-        st.toast("Feedback recorded!", icon="📝")

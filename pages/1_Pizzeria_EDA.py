@@ -55,22 +55,19 @@ def alt_bar_horizontal(data:pd.DataFrame, x_col:str, y_col:str, color_by:str,
     if show_data:
         print(data)
         
-    # Change color scheme for different use case
     if len(data[color_by].unique()) > 5:
         my_scheme = 'category20'
         color_scale = alt.Scale(scheme=my_scheme)
     else:
         my_scheme = 'yellowgreenblue'
+        color_range = ['#ffffcc', '#a1dab4', '#41b6c4', '#2c7fb8', '#253494']
         if color_domain_order:
-            color_range = ['#ffffcc', '#a1dab4', '#41b6c4', '#2c7fb8', '#253494']
             color_scale = alt.Scale(domain=color_domain_order, range=color_range)
         else:
             color_scale = alt.Scale(scheme=my_scheme)
 
-    
     # Sort the color by the color domain
     if color_domain_order:
-        color_scale = alt.Scale(domain=color_domain_order, range=color_range)
         coloring = alt.Color('%s:N' % color_by,
                 legend=alt.Legend(title=color_by, orient='right'),
                 scale=color_scale,
@@ -78,7 +75,7 @@ def alt_bar_horizontal(data:pd.DataFrame, x_col:str, y_col:str, color_by:str,
     else:
         coloring = alt.Color('%s:N' % color_by,
                         legend=alt.Legend(title=color_by, orient='right'),
-                        scale=alt.Scale(scheme=my_scheme))
+                        scale=color_scale)
     # Sort the axis
     if sort_bar:
         sort_by = '-x'
@@ -146,16 +143,14 @@ def alt_bar_vertical(data: pd.DataFrame, x_col: str, y_col: str, color_by: str,
         color_scale = alt.Scale(scheme=my_scheme)
     else:
         my_scheme = 'yellowgreenblue'
+        color_range = ['#ffffcc', '#a1dab4', '#41b6c4', '#2c7fb8', '#253494']
         if color_domain_order:
-            color_range = ['#ffffcc', '#a1dab4', '#41b6c4', '#2c7fb8', '#253494']
             color_scale = alt.Scale(domain=color_domain_order, range=color_range)
         else:
             color_scale = alt.Scale(scheme=my_scheme)
 
-    
     # Sort the color by the color domain
     if color_domain_order:
-        color_scale = alt.Scale(domain=color_domain_order, range=color_range)
         coloring = alt.Color('%s:N' % color_by,
                 legend=alt.Legend(title=color_by, orient='right'),
                 scale=color_scale,
@@ -163,7 +158,7 @@ def alt_bar_vertical(data: pd.DataFrame, x_col: str, y_col: str, color_by: str,
     else:
         coloring = alt.Color('%s:N' % color_by,
                         legend=alt.Legend(title=color_by, orient='right'),
-                        scale=alt.Scale(scheme=my_scheme))
+                        scale=color_scale)
     # Sort the axis
     if sort_bar:
         sort_by = '-y'

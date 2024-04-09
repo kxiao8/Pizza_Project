@@ -112,7 +112,16 @@ if prompt := st.chat_input(placeholder="OrderBot is ready to take your order!"):
         st.stop()
     else:
         openai.api_key = openai_api_key
-    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+    #response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+    client = openai.OpenAI(api_key=openai_api_key)
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        temperature=0,
+        top_p=1,
+        frequency_penalty=0,    
+        presence_penalty=0
+    )
     st.session_state["response"] = response.choices[0].message.content
     with st.chat_message("assistant"):
         messages.append({"role": "assistant", "content": st.session_state["response"]})
